@@ -1,4 +1,4 @@
-function fib(n){
+function fibCount(n){
     var num;
     var div = document.createElement('div');
     if (n<2){
@@ -13,8 +13,8 @@ function fib(n){
         //div.appendChild(p);
     }
     else{
-        var left = fib(n - 1);
-        var right = fib(n - 2);
+        var left = fibCount(n - 1);
+        var right = fibCount(n - 2);
         
         num = left.num+right.num;
         var p = document.createElement('p');
@@ -26,3 +26,10 @@ function fib(n){
     }
     return {'num':num, 'html': div};
 }
+
+var fib = function(n, node){
+    var tree = fibCount(n)
+    node.appendChild(tree.html)
+}
+
+fib(6, document.querySelector(' .red'))
