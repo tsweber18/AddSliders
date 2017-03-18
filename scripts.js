@@ -1,30 +1,37 @@
 function fibCount(n){
-    var num;
+    var value;
     var div = document.createElement('div');
+    div.setAttribute("class", "fib");
+    
     if (n<2){
         if (n===1){
-            num=1;
+            value=1;
         }
         else if (n===0){
-            num=0;
+            value=0;
         }
         var p = document.createElement('p');
-        p.innerHTML = 'Fib(' + n + ') = ' + num;
+        p.innerHTML = 'Fib(' + n + ') = ' + value;
         div.appendChild(p);
     }
     else{
         var left = fibCount(n - 1);
-        var right = fibCount(n - 2);
+        var clas = left.html.getAttribute("class");
+        left.html.setAttribute("class", clas + " fib-left");
         
-        num = left.num+right.num;
+        var right = fibCount(n - 2);
+        var clas = right.html.getAttribute("class");
+        right.html.setAttribute("class", clas + " fib-right");
+        
+        value = left.value+right.value;
         var p = document.createElement('p');
-        p.innerHTML = 'Fib(' + n + ') = ' + num;
+        p.innerHTML = 'Fib(' + n + ') = ' + value;
         div.appendChild(p);
         
         div.appendChild(left.html);
         div.appendChild(right.html);
     }
-    return {'num':num, 'html': div};
+    return {'value':value, 'html': div};
 }
 
 var fib = function(n, node){
