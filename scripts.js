@@ -40,5 +40,22 @@ var fib = function(n, node){
         node.setAttribute("id", "fib");
 }
 
-
+var style = document.createElement('style');
+style.textContent=
+    "#fib {" +
+    "   display: inline-block;" +
+    "   width: 20000px;" +
+    "}"+
+    "" +
+    ".fib{"+
+    "   background-color:rgba{0,0,255,0.1);"+
+    "}" +
+    ""+
+    ".fib-left {" +
+    "   float:left;"+
+    "   display: inline-block;" +
+    "   margin-right: 4px;"+
+    "}"+
+    ""+
+    
 fib(6, document.querySelector(' .red'));
