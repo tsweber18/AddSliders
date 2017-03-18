@@ -6,11 +6,11 @@ function fibCount(n){
             num=1;
         }
         else if (n===0){
-            num=0
+            num=0;
         }
         var p = document.createElement('p');
-        p.textContent = 'Fib(' + n + ') = ' + num;
-        //div.appendChild(p);
+        p.innerHTML = 'Fib(' + n + ') = ' + num;
+        div.appendChild(p);
     }
     else{
         var left = fibCount(n - 1);
@@ -18,18 +18,18 @@ function fibCount(n){
         
         num = left.num+right.num;
         var p = document.createElement('p');
-        p.textContent = 'Fib(' + n + ') = ' + num;
-        //div.appendChild(p);
+        p.innerHTML = 'Fib(' + n + ') = ' + num;
+        div.appendChild(p);
         
-        //div.appendChild(left.html);
-        //div.appendChild(right.html);
+        div.appendChild(left.html);
+        div.appendChild(right.html);
     }
     return {'num':num, 'html': div};
 }
 
 var fib = function(n, node){
-    var tree = fibCount(n)
-    node.appendChild(tree.html)
+    var tree = fibCount(n);
+    node.appendChild(tree.html);
 }
 
-fib(6, document.querySelector(' .red'))
+fib(6, document.querySelector(' .red'));
