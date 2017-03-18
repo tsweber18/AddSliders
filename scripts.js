@@ -35,8 +35,10 @@ function fibCount(n){
 }
 
 var fib = function(n, node){
-    var tree = fibCount(n);
-    node.appendChild(tree.html);
+    var tree = fibCount(n)
+        node.appendChild(tree.html);
+        node.setAttribute("id", "fib");
 }
+
 
 fib(6, document.querySelector(' .red'));
