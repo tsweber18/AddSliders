@@ -4,6 +4,7 @@ function initializeRed() {
     redDiv.setAttribute('class', 'red');
     document.body.appendChild(redDiv);
     redDiv.setAttribute('id', 'fib');
+    redDiv.innerHTML='<input type="range" value="0" min="0" max="11" oninput="fibSliderChange(this.value)"> <input type="button" id="fibButton" onclick="recalcFib()" value="Fib(0)">'+redDiv.innerHTML;
 }
 
 function initializeYellow() {
@@ -11,6 +12,7 @@ function initializeYellow() {
     yellowDiv.setAttribute('class', 'yellow');
     document.body.appendChild(yellowDiv);
     yellowDiv.setAttribute('id', 'fib');
+    yellowDiv.innerHTML='<input type="range" value="0" min="0" max="11" oninput="tribSliderChange(this.value)"> <input type="button" id="fibButton" onclick="recalcTrib()" value="Trib(0)">'+yellowDiv.innerHTML;
 }
 
 function initializeBlue() {
@@ -18,11 +20,22 @@ function initializeBlue() {
     blueDiv.setAttribute('class', 'blue');
     document.body.appendChild(blueDiv);
     blueDiv.setAttribute('id', 'fib');
+    blueDiv.innerHTML='<input type="range" value="0" min="0" max="11" oninput="pellSliderChange(this.value)"> <input type="button" id="fibButton" onclick="recalcPell()" value="Pell(0)">'+blueDiv.innerHTML;
 }
 
 initializeRed();
 initializeYellow();
 initializeBlue();
+
+var currentFib = 0;
+var currentTrib = 0;
+var currentPell= 0;
+
+function fibSliderChange(n){
+currentFib = n;
+document.getElementById('fibButton').setAttribute('value', 'Fib(' +n+ ')');
+}
+
 
 function fibCount(n) {
     var value;
