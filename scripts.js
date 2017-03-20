@@ -1,39 +1,52 @@
+var yellowDiv = document.createElement('div');
+var blueDiv = document.createElement('div');
+var redDiv = document.createElement('div');
+var currentFib = 0;
+var currentTrib = 0;
+var currentPell= 0;
+
 function initializeRed() {
     document.title = 'Homework Sucks';
-    var redDiv = document.createElement('div');
+    redDiv = document.createElement('div');
     redDiv.setAttribute('class', 'red');
     document.body.appendChild(redDiv);
     redDiv.setAttribute('id', 'fib');
-    redDiv.innerHTML='<input type="range" value="0" min="0" max="11" oninput="fibSliderChange(this.value)"> <input type="button" id="fibButton" onclick="recalcFib()" value="Fib(0)">'+redDiv.innerHTML;
+    redDiv.innerHTML='<input type="range" value="0" min="0" max="11" oninput="fibSliderChange(this.value)"> <input type="button" id="fibButton" onclick="recalcFib(this)" value="Fib(0)">'+redDiv.innerHTML;
 }
 
 function initializeYellow() {
-    var yellowDiv = document.createElement('div');
+    yellowDiv = document.createElement('div');
     yellowDiv.setAttribute('class', 'yellow');
     document.body.appendChild(yellowDiv);
     yellowDiv.setAttribute('id', 'fib');
-    yellowDiv.innerHTML='<input type="range" value="0" min="0" max="11" oninput="tribSliderChange(this.value)"> <input type="button" id="fibButton" onclick="recalcTrib()" value="Trib(0)">'+yellowDiv.innerHTML;
+    yellowDiv.innerHTML='<input type="range" value="0" min="0" max="11" oninput="tribSliderChange(this.value)"> <input type="button" id="tribButton" onclick="recalcTrib(this)" value="Trib(0)">'+yellowDiv.innerHTML;
 }
 
 function initializeBlue() {
-    var blueDiv = document.createElement('div');
+    blueDiv = document.createElement('div');
     blueDiv.setAttribute('class', 'blue');
     document.body.appendChild(blueDiv);
     blueDiv.setAttribute('id', 'fib');
-    blueDiv.innerHTML='<input type="range" value="0" min="0" max="11" oninput="pellSliderChange(this.value)"> <input type="button" id="fibButton" onclick="recalcPell()" value="Pell(0)">'+blueDiv.innerHTML;
+    blueDiv.innerHTML='<input type="range" value="0" min="0" max="11" oninput="pellSliderChange(this.value)"> <input type="button" id="pellButton" onclick="recalcPell(this)" value="Pell(0)">'+blueDiv.innerHTML;
 }
 
 initializeRed();
 initializeYellow();
 initializeBlue();
 
-var currentFib = 0;
-var currentTrib = 0;
-var currentPell= 0;
 
 function fibSliderChange(n){
 currentFib = n;
 document.getElementById('fibButton').setAttribute('value', 'Fib(' +n+ ')');
+}
+
+function recalcFib(me){
+    var myDiv = me.parentNode;
+    var fibTree = myDiv.querySelector('.fib');
+    if (fibTree){
+        myDiv.removeChild(fibTree);
+    }
+    fibTree = fib(this.currentFib, redDiv);
 }
 
 
@@ -43,10 +56,10 @@ function fibCount(n) {
     div.setAttribute("class", "fib");
 
     if (n < 2) {
-        if (n === 1) {
+        if (n == 1) {
             value = 1;
         }
-        else if (n === 0) {
+        else if (n == 0) {
             value = 0;
         }
         var p = document.createElement('p');
@@ -73,21 +86,23 @@ function fibCount(n) {
     return { 'value': value, 'html': div };
 }
 
-var fib = function (n, node) {
+function fib(n, node){
     var tree = fibCount(n);
     node.appendChild(tree.html);
     node.setAttribute("id", "fib");
+    return tree.div;
 };
 
 var style = document.createElement('style');
 
 var styleText = "#fib {";
 styleText += "   display: inline-block;";
-styleText += "   width: 40000px;";
+styleText += "   width: 30000px;";
 styleText += "}";
 styleText += "";
 styleText += ".fib{";
 styleText += "   background-color:rgba(60,60,60,0.2);";
+//styleText += " text-align: center;";
 styleText += "}";
 styleText += "";
 styleText += ".fib-middle{";
@@ -163,8 +178,6 @@ document.querySelector('body').appendChild(style);
 // }('red', 'fib'));
 
 
-
-fib(11, document.querySelector(' .red'));
 
 // var divMakerMaker = function (color, id) {
 //     return function () {
