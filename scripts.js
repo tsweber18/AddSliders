@@ -34,12 +34,24 @@ initializeRed();
 initializeYellow();
 initializeBlue();
 
+function tribSliderChange(n){
+    currentTrib = n;
+    document.getElementById('tribButton').setAttribute('value', 'Trib(' +n+ ')');
+}
 
 function fibSliderChange(n){
 currentFib = n;
 document.getElementById('fibButton').setAttribute('value', 'Fib(' +n+ ')');
 }
 
+function recalcTrib(me){
+    var myDiv = me.parentNode;
+    var fibTree = myDiv.querySelector('.fib');
+    if (fibTree){
+        myDiv.removeChild(fibTree);
+    }
+    fibTree = trib(this.currentTrib, yellowDiv);
+}
 function recalcFib(me){
     var myDiv = me.parentNode;
     var fibTree = myDiv.querySelector('.fib');
@@ -194,13 +206,13 @@ function tribHelper(n) {
     div.setAttribute("class", "fib");
 
     if (n < 3) {
-        if (n === 2) {
+        if (n == 2) {
             value = 1;
         }
-        else if (n === 1) {
+        else if (n == 1) {
             value = 0;
         }
-        else if (n === 0) {
+        else if (n == 0) {
             value = 0;
         }
         var p = document.createElement('p');
@@ -232,12 +244,12 @@ function tribHelper(n) {
     return { 'value': value, 'html': div };
 }
 
-var trib = function (n, node) {
+function trib(n, node) {
     var tree = tribHelper(n);
     node.appendChild(tree.html);
     node.setAttribute("id", "fib");
 };
-trib(11, document.querySelector(' .yellow'));
+
 
 function pellHelper(n) {
     var value;
