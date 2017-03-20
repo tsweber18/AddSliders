@@ -34,6 +34,11 @@ initializeRed();
 initializeYellow();
 initializeBlue();
 
+function pellSliderChange(n){
+    currentPell = n;
+    document.getElementById('pellButton').setAttribute('value', 'Pell(' +n+ ')');
+}
+
 function tribSliderChange(n){
     currentTrib = n;
     document.getElementById('tribButton').setAttribute('value', 'Trib(' +n+ ')');
@@ -42,6 +47,15 @@ function tribSliderChange(n){
 function fibSliderChange(n){
 currentFib = n;
 document.getElementById('fibButton').setAttribute('value', 'Fib(' +n+ ')');
+}
+
+function recalcPell(me){
+    var myDiv = me.parentNode;
+    var fibTree = myDiv.querySelector('.fib');
+    if (fibTree){
+        myDiv.removeChild(fibTree);
+    }
+    fibTree = pell(this.currentPell, blueDiv);
 }
 
 function recalcTrib(me){
@@ -104,6 +118,104 @@ function fib(n, node){
     node.setAttribute("id", "fib");
     return tree.div;
 };
+
+
+function tribHelper(n) {
+    var value;
+    var div = document.createElement('div');
+    div.setAttribute("class", "fib");
+
+    if (n < 3) {
+        if (n == 2) {
+            value = 1;
+        }
+        else if (n == 1) {
+            value = 0;
+        }
+        else if (n == 0) {
+            value = 0;
+        }
+        var p = document.createElement('p');
+        p.innerHTML = 'Trib(' + n + ') = ' + value;
+        div.appendChild(p);
+    }
+    else {
+        var left = tribHelper(n - 1);
+        var clas = left.html.getAttribute("class");
+        left.html.setAttribute("class", clas + " fib-left");
+
+        var middle = tribHelper(n - 2);
+        clas = middle.html.getAttribute("class");
+        middle.html.setAttribute("class", clas + " fib-middle");
+
+        var right = tribHelper(n - 3);
+        clas = right.html.getAttribute("class");
+        right.html.setAttribute("class", clas + " fib-right");
+
+        value = left.value + middle.value + right.value;
+        p = document.createElement('p');
+        p.textContent = 'Trib(' + n + ') = ' + value;
+        div.appendChild(p);
+
+        div.appendChild(left.html);
+        div.appendChild(middle.html);
+        div.appendChild(right.html);
+    }
+    return { 'value': value, 'html': div };
+}
+
+function trib(n, node) {
+    var tree = tribHelper(n);
+    node.appendChild(tree.html);
+    node.setAttribute("id", "fib");
+};
+
+
+function pellHelper(n) {
+    var value;
+    var div = document.createElement('div');
+    div.setAttribute("class", "fib");
+
+    if (n < 2) {
+        if (n == 1) {
+            value = 1;
+        }
+        else if (n == 0) {
+            value = 0;
+        }
+        var p = document.createElement('p');
+        p.innerHTML = 'Pell(' + n + ') = ' + value;
+        div.appendChild(p);
+    }
+    else {
+        var left = pellHelper(n - 1);
+        var clas = left.html.getAttribute("class");
+        left.html.setAttribute("class", clas + " fib-left");
+
+        var right = pellHelper(n - 2);
+        clas = right.html.getAttribute("class");
+        right.html.setAttribute("class", clas + " fib-right");
+
+        value = (2 * (left.value)) + right.value;
+        p = document.createElement('p');
+        p.textContent = 'Pell(' + n + ') = ' + value;
+        div.appendChild(p);
+
+        div.appendChild(left.html);
+        div.appendChild(right.html);
+    }
+    return { 'value': value, 'html': div };
+}
+
+function pell(n, node) {
+    var tree = pellHelper(n);
+    node.appendChild(tree.html);
+    node.setAttribute("id", "fib");
+}
+
+
+
+
 
 var style = document.createElement('style');
 
@@ -199,98 +311,3 @@ document.querySelector('body').appendChild(style);
 //         document.body.appendChild(div);
 //     };
 // };
-
-function tribHelper(n) {
-    var value;
-    var div = document.createElement('div');
-    div.setAttribute("class", "fib");
-
-    if (n < 3) {
-        if (n == 2) {
-            value = 1;
-        }
-        else if (n == 1) {
-            value = 0;
-        }
-        else if (n == 0) {
-            value = 0;
-        }
-        var p = document.createElement('p');
-        p.innerHTML = 'Trib(' + n + ') = ' + value;
-        div.appendChild(p);
-    }
-    else {
-        var left = tribHelper(n - 1);
-        var clas = left.html.getAttribute("class");
-        left.html.setAttribute("class", clas + " fib-left");
-
-        var middle = tribHelper(n - 2);
-        clas = middle.html.getAttribute("class");
-        middle.html.setAttribute("class", clas + " fib-middle");
-
-        var right = tribHelper(n - 3);
-        clas = right.html.getAttribute("class");
-        right.html.setAttribute("class", clas + " fib-right");
-
-        value = left.value + middle.value + right.value;
-        p = document.createElement('p');
-        p.textContent = 'Trib(' + n + ') = ' + value;
-        div.appendChild(p);
-
-        div.appendChild(left.html);
-        div.appendChild(middle.html);
-        div.appendChild(right.html);
-    }
-    return { 'value': value, 'html': div };
-}
-
-function trib(n, node) {
-    var tree = tribHelper(n);
-    node.appendChild(tree.html);
-    node.setAttribute("id", "fib");
-};
-
-
-function pellHelper(n) {
-    var value;
-    var div = document.createElement('div');
-    div.setAttribute("class", "fib");
-
-    if (n < 2) {
-        if (n === 1) {
-            value = 1;
-        }
-        else if (n === 0) {
-            value = 0;
-        }
-        var p = document.createElement('p');
-        p.innerHTML = 'Pell(' + n + ') = ' + value;
-        div.appendChild(p);
-    }
-    else {
-        var left = pellHelper(n - 1);
-        var clas = left.html.getAttribute("class");
-        left.html.setAttribute("class", clas + " fib-left");
-
-        var right = pellHelper(n - 2);
-        clas = right.html.getAttribute("class");
-        right.html.setAttribute("class", clas + " fib-right");
-
-        value = (2 * (left.value)) + right.value;
-        p = document.createElement('p');
-        p.textContent = 'Pell(' + n + ') = ' + value;
-        div.appendChild(p);
-
-        div.appendChild(left.html);
-        div.appendChild(right.html);
-    }
-    return { 'value': value, 'html': div };
-}
-
-var pell = function (n, node) {
-    var tree = pellHelper(n);
-    node.appendChild(tree.html);
-    node.setAttribute("id", "fib");
-}
-
-pell(11, document.querySelector('.blue'));
